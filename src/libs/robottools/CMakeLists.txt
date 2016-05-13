@@ -3,12 +3,18 @@ INCLUDE(../../../cmake/macros.cmake)
 #PROJECT(robottools)
 
 ADD_INTERFACE_INCLUDEDIR()
-ADD_SDLIB_INCLUDEDIR(portability tgf math tgfclient sensors)
-ADD_SDL_INCLUDEDIR()
+ADD_SDLIB_INCLUDEDIR(portability tgf math tgfclient)
+
+IF(OPTION_SDL2)
+	ADD_SDL2_INCLUDEDIR()
+ELSE(OPTION_SDL2)
+	ADD_SDL_INCLUDEDIR()
+ENDIF(OPTION_SDL2)
+
 ADD_PLIB_INCLUDEDIR()
 
-SET(ROBOTTOOLS_SOURCES rtteammanager.cpp rttelem.cpp rttimeanalysis.cpp  rttrack.cpp rtutil.cpp rthumandriver.cpp followDriver.cpp)
-SET(ROBOTTOOLS_HEADERS robottools.h teammanager.h timeanalysis.h humandriver.h followDriver.h)
+SET(ROBOTTOOLS_SOURCES rtteammanager.cpp rttelem.cpp rttimeanalysis.cpp  rttrack.cpp rtutil.cpp rthumandriver.cpp)
+SET(ROBOTTOOLS_HEADERS robottools.h teammanager.h timeanalysis.h humandriver.h)
 
 IF(WIN32)
 	# DLL export stuff under Windows (to avoid .def file)
@@ -33,7 +39,7 @@ SD_ADD_LIBRARY(robottools SHARED ${ROBOTTOOLS_SOURCES} ${ROBOTTOOLS_HEADERS})
 
 ADD_PLIB_LIBRARY(robottools sg ul)
 
-ADD_SDLIB_LIBRARY(robottools portability tgf tgfclient sensors)
+ADD_SDLIB_LIBRARY(robottools portability tgf tgfclient)
 
 IF(WIN32)
 	SD_INSTALL_FILES(BIN TARGETS robottools)

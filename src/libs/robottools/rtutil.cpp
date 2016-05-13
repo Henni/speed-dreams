@@ -20,8 +20,6 @@
     @ingroup	robottools
 */
 
-#include <algorithm>
-
 #include <portability.h>
 #include <tgf.h>
 
@@ -58,40 +56,3 @@ void RtGetCarindexString( int index, const char *bot_dname, char extended, char 
 	result[ resultLength - 1 ] = '\0';
 }
 
-tdble getSpeedDepAccel(tdble speed, tdble maxAccel, tdble startAccel, tdble incUntilSpeed, tdble maxUntilSpeed, tdble decUntilSpeed)
-{
-	tdble accel = 0.0;
-    if(speed < incUntilSpeed)
-    {
-        accel = startAccel + (maxAccel - startAccel) / incUntilSpeed * speed; // accel increases from startAccel to maxAccel from speed 0 to speed incUntilSpeed
-    }
-    else if (speed < maxUntilSpeed) 
-    {
-        accel = maxAccel; // accel is maxAccel until speed is lower than maxUntil speed
-    }
-    else if (speed < decUntilSpeed)
-    {
-        accel = (decUntilSpeed - speed) / (decUntilSpeed - maxUntilSpeed) * maxAccel; // accel decreases from maxAccel to 0.0 from speed maxUntilSpeed to speed decUntilSpeed
-    }
-
-    return accel;
-}
-
-int getSpeedDepGear(tdble speed, int currentGear)
-{
-                     // 0   60  100 150 200 250 km/h
-    tdble gearUP[6] = {-1, 17, 27, 41, 55, 70}; //Game uses values in m/s: xyz m/s = (3.6 * xyz) km/h
-    tdble gearDN[6] = {0,  0,  15, 23, 35, 48};
-
-    int gear = currentGear;
-
-    if (speed > gearUP[gear])
-    {
-        gear = std::min(5, currentGear + 1);
-    }
-    if (speed < gearDN[gear])
-    {
-        gear = std::max(1, currentGear - 1);
-    }
-    return gear;
-}
