@@ -526,6 +526,8 @@ typedef struct
 
 	float	msgColor[4]; /**< RGBA of text */
 	tDashboardItem *setupChangeCmd;	/* setup item changed in dashboard */
+	float	engineTemp;
+	float	engineRPM;
 } tCarCtrl;
 #define _steerCmd	ctrl.steer
 #define _accelCmd	ctrl.accelCmd
@@ -550,6 +552,9 @@ typedef struct
 
 #define _telemetryMode ctrl.telemetryMode
 #define _singleWheelBrakeMode ctrl.singleWheelBrakeMode
+
+#define _engineTemp ctrl.engineTemp
+#define _engineRPM	ctrl.engineRPM
 
 struct RobotItf;
 

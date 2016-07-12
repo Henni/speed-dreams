@@ -32,7 +32,6 @@
 #include "grutil.h"       // grWriteTime
 #include "grloadac.h"     // grssgSetCurrentOptions
 #include "grscreen.h"
-
 using std::string;
 
 static const string rgba[4] =
@@ -668,8 +667,23 @@ cGrBoard::grDispCarBoard2(const tSituation *s)
   if (grGetSplitTime(s, false, time, NULL, &color))
     grWriteTime(color, GFUI_FONT_SMALL_C, x3, y, dxc, time, 1);
   y -= dy;
-  y -= dy;
+//  y -= dy;
+#if 1
 
+  // Display engine tmperature
+  GfuiDrawString("Temp.:", normal_color_, GFUI_FONT_SMALL_C, x, y);
+  snprintf(buf, sizeof(buf), "%.2f", car_->_engineTemp);
+  GfuiDrawString(buf, normal_color_, GFUI_FONT_SMALL_C, x2, y, dxc, GFUI_ALIGN_HR);
+  y -= dy;
+#endif
+#if 1
+
+  // Display engine rpm
+  GfuiDrawString("RPM:", normal_color_, GFUI_FONT_SMALL_C, x, y);
+  snprintf(buf, sizeof(buf), "%.2f", car_->_engineRPM);
+  GfuiDrawString(buf, normal_color_, GFUI_FONT_SMALL_C, x2, y, dxc, GFUI_ALIGN_HR);
+  y -= dy;
+#endif
   // Display car ahead and diff
   color = ahead_color_;
   if (car_->_pos != 1) {
