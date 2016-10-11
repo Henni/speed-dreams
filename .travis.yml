@@ -17,6 +17,8 @@ addons:
     - libenet-dev
     - libogg0
     - libvorbis0a
+    - libXmu-devel
+    - mesa-libGL-devel
 
 script:
 - mkdir build
