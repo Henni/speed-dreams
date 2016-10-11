@@ -12,13 +12,11 @@ addons:
     - libvorbis-dev
     - libexpat-dev
     - libjpeg-dev
-    - libplib-dev
+    - libplib1
     - libopenal-dev
     - libenet-dev
     - libogg0
     - libvorbis0a
-    - libXmu-devel
-    - mesa-libGL-devel
 
 script:
 - mkdir build
